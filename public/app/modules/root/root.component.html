@@ -1,0 +1,12 @@
+<nav class="navbar" role="navigation">
+  <ul class="nav navbar-nav">
+    <li>
+      <a [routerLink]="['/login']"><i class="fa fa-sign-in fa-fw"></i> Login</a>
+    </li>
+    <li *ngFor="let page of pages">
+      <a [routerLink]="['/'+page.pageId]"><i class="fa {{page.icon}} fa-fw"></i> {{page.label}}</a>
+    </li>
+  </ul>
+  <p class="navbar-text navbar-right">{{user}}</p>
+</nav>
+<router-outlet></router-outlet>
