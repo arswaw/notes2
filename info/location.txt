@@ -1,0 +1,2 @@
+hostname: godiva
+ip:192.168.58.7:4242

@@ -1,0 +1,7 @@
+/bin/www - start up file
+/lib - library files - server side logic - file names are self explanitory
+/models - db models - just require directory
+/node_modules - node.js librarys
+/public - all client side code - is / of url
+/server.js - server config
+/router.js - api routes

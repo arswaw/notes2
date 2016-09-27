@@ -1,13 +1,18 @@
 import {NgModule} from '@angular/core';
-import {HttpModule, JsonpModule} from '@angular/http';
 //modules
 import {SharedModule} from '../shared/shared.module';
+//routing
+import {QualityRouting} from './quality.routing';
+//components
+import {QualityComponent} from './quality.component';
 
 @NgModule({
     imports: [
-        HttpModule,
-        JsonpModule,
-        SharedModule
+        SharedModule,
+        QualityRouting
+    ],
+    declarations: [
+        QualityComponent
     ]
 })
 export class QualityModule{}

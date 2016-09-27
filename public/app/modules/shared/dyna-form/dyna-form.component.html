@@ -1,0 +1,68 @@
+<div *ngFor="let field of fields">
+    <div [ngSwitch]="field.controlType">
+        <div *ngSwitchCase="'form'" class="form-group">
+            <form class="form-horizontal">
+                <dyna-form [fields]="field.fields"></dyna-form>
+            </form>
+        </div>
+        <div *ngSwitchCase="'text'" class="form-group">
+            <label class="col-sm-3 control-label"><i [ngClass]="{required: field.required}" class="fa fa-asterisk" aria-hidden="true" style="display: none"></i>{{field.label}}</label>
+            <div class="col-sm-9">
+                <input [ngModelOptions]="{standalone: true}" type="text" class="form-control" [(ngModel)]="field.value">   
+            </div>
+        </div>
+        <div *ngSwitchCase="'object'" class="form-group">
+            <label class="col-sm-3 control-label"><i [ngClass]="{required: field.required}" class="fa fa-asterisk" aria-hidden="true" style="display: none"></i>{{field.label}}</label>
+            <div class="col-sm-9">
+                <dyna-form [fields]="field.children"></dyna-form>
+            </div>
+        </div>
+        <div *ngSwitchCase="'hcheck'">
+            <div class="col-sm-3">
+                <input [ngModelOptions]="{standalone: true}" [(ngModel)]="field.value" type="checkbox"> <i [ngClass]="{required: field.required}" class="fa fa-asterisk" aria-hidden="true" style="display: none"></i>{{field.label}}
+            </div>
+        </div>
+        <div *ngSwitchCase="'vcheck'"  class="form-group">
+            <label class="control-label  col-sm-3"><i [ngClass]="{required: field.required}" class="fa fa-asterisk" aria-hidden="true" style="display: none"></i>{{field.label}}</label>
+            <div class="col-sm-9">
+                <input [ngModelOptions]="{standalone: true}" [(ngModel)]="field.value"  class="form-control" type="checkbox"> 
+            </div>
+        </div>
+        <div *ngSwitchCase="'pair'">
+            <label class="col-sm-1 control-label">Key:</label>
+            <div class="col-sm-5">
+                <input [ngModelOptions]="{standalone: true}" type="text" class="form-control" [(ngModel)]="field.key">
+            </div>
+            <label class="col-sm-1 control-label">Value:</label>
+            <div class="col-sm-5">
+                <input [ngModelOptions]="{standalone: true}" type="text" class="form-control" [(ngModel)]="field.value">
+            </div>
+        </div>
+        <div *ngSwitchCase="'static'" class="form-group">
+            <label class="col-sm-3 control-label">{{field.label}}</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">{{field.value}}</p>
+            </div>
+        </div>
+        <div *ngSwitchCase="'textarea'">
+            <label class="control-label"><i [ngClass]="{required: field.required}" class="fa fa-asterisk" aria-hidden="true" style="display: none"></i>{{field.label}}</label>
+            <textarea [ngModelOptions]="{standalone: true}" class="notes" [(ngModel)]="field.value" readonly></textarea>
+        </div>
+        <div *ngSwitchCase="'select'" class="form-group">
+            <label class="col-sm-3 control-label"><i [ngClass]="{required: field.required}" class="fa fa-asterisk" aria-hidden="true" style="display: none"></i>{{field.label}}</label>
+            <div class="col-sm-9">
+                <select [ngModelOptions]="{standalone: true}" [(ngModel)]="field.value" class="form-control">
+                    <option *ngFor="let opt of field.options" value="{{opt.value}}">{{opt.key}}</option>
+                </select>
+            </div>
+        </div>
+        <div *ngSwitchCase="'radio'" class="form-group">
+            <label class="col-sm-3 control-label"><i [ngClass]="{required: field.required}" class="fa fa-asterisk" aria-hidden="true" style="display: none"></i>{{field.label}}</label>
+            <div class="col-sm-9 btn-group">
+                <label class="btn btn-primary" *ngFor="let opt of field.options" (click)="field.value = opt.key">
+                    <input type="radio" name="{{field.key}}" [ngModel]="{checked: field.value == opt.key}" (ngModelChange)="field.value = opt.key" value="{{opt.key}}"> {{opt.value}}
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

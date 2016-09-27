@@ -1,1 +1,18 @@
-<h1>Settings</h1>
+<div class="container">
+    <div class="panel-group" >
+        <div class="panel panel-default" *ngFor="let c of categories">
+            <div class="panel-heading" (click)="c.active = !c.active">
+                <h4 class="panel-title">
+                    <a role="button">
+                        {{c.label}}
+                    </a>
+                </h4>
+            </div>
+            <div class="panel-collapse collapse in" [ngClass]="{hidden: !c.active}">
+                <div class="panel-body">
+                    {{c.label}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

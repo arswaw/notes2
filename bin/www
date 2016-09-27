@@ -1,0 +1,12 @@
+#!/usr/bin/env node
+
+var http = require('http');
+var app = require('../server.js');
+var models = require("../models");
+
+models.sync(function () {
+    var server = http.createServer(app);
+    server.listen(4242, function(){
+        console.log(4242);
+    });
+});

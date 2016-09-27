@@ -1,0 +1,28 @@
+<div class="container-fluid">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th *ngFor="let col of columns" (click)="sorter(col.id)">{{col.label}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of rows" [hidden]="row.hide" [ngClass]="{info: row.selected}">
+                <td *ngFor="let col of columns" (click)="clicked(row)">
+                    <div [ngSwitch]="col.type">
+                        <div *ngSwitchCase="'text'">
+                            <input type="text" [(ngModel)]="row[col.id]">
+                        </div>
+                        <div *ngSwitchCase="'static'">
+                            {{row[col.id]}}
+                        </div>
+                        <div *ngSwitchCase="'select'">
+                            <select [ngModelOptions]="{standalone: true}" [(ngModel)]="row[col.id]" (ngModelChange)="changed(row)" class="form-control">
+                                <option *ngFor="let opt of col.options" value="{{opt.value}}">{{opt.key}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

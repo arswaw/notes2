@@ -1,0 +1,10 @@
+install steps - os independent
+1. download node.js from https://nodejs.org/en/
+2. install it for your os
+3. Open command line tool
+4. cd into technotes directory
+5. run command "npm install"
+6. cd into public folder
+7. run command "npm install"
+8. cd .. back to root of directory
+9. run command "node bin/www"

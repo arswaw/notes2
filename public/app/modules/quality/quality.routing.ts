@@ -1,15 +1,13 @@
-import { RouterModule }  from '@angular/router';
+import { ModuleWithProviders }  from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 //components
 import {QualityComponent} from './quality.component';
 
-export const routing = RouterModule.forChild([
+const qualityRoutes: Routes =[
     { 
         path: 'quality', 
-        children: [
-            {
-                path: '',
-                component: QualityComponent,
-            }
-        ]
+        component: QualityComponent,
     }
-]);
+];
+
+export const QualityRouting: ModuleWithProviders = RouterModule.forChild(qualityRoutes);

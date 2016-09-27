@@ -23,6 +23,9 @@ var receiving_module_1 = require('../receiving/receiving.module');
 var repairs_module_1 = require('../repairs/repairs.module');
 var shared_module_1 = require('../shared/shared.module');
 var settings_module_1 = require('../settings/settings.module');
+//services
+var auth_service_1 = require('../../services/auth/auth.service');
+var util_service_1 = require('../../services/util/util.service');
 //routing
 var root_routing_1 = require('./root.routing');
 var RootModule = (function () {
@@ -47,6 +50,9 @@ var RootModule = (function () {
                 login_component_1.LoginComponent
             ],
             providers: [
+                root_routing_1.appRoutingProviders,
+                auth_service_1.AuthService,
+                util_service_1.UtilService,
                 { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy }
             ],
             bootstrap: [root_component_1.RootComponent]

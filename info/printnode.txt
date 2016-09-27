@@ -1,0 +1,23 @@
+printnode.com info
+
+to use
+1. install desktop app on pc with printer installed on it
+2. login to printnode account on app
+3. it will automaticly add printers to list
+
+right now credentials are
+user: jacob.vanvleet@gmail.com
+pass: Eldar4242
+key: Njk4OWRmMWEwYWQ1MWVhNmRiNzc2NjllNDE4NzI3MzAwZGM0OGJkMTo=
+
+https://api.printnode.com/printers - gets list of printers
+https://api.printnode.com/printjobs - post job to this url
+
+post body
+{
+	contentType: 'pdf_uri',
+	source: 'Tech Notes',
+	title: 'Print Label',
+	content: 'http://192.168.58.7:4242/labels/{{rma#}}.pdf',
+	printerId: printerId
+}

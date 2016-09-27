@@ -11,6 +11,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var common_1 = require('@angular/common');
 var forms_1 = require('@angular/forms');
+var http_1 = require('@angular/http');
+//components
+var dyna_form_component_1 = require('./dyna-form/dyna-form.component');
+var popup_component_1 = require('./popup/popup.component');
+var header_component_1 = require('./header/header.component');
+var list_component_1 = require('./list/list.component');
+var printer_component_1 = require('./printer/printer.component');
+var scanner_component_1 = require('./scanner/scanner.component');
 var SharedModule = (function () {
     function SharedModule() {
     }
@@ -18,11 +26,31 @@ var SharedModule = (function () {
         core_1.NgModule({
             imports: [
                 common_1.CommonModule,
-                forms_1.FormsModule
+                forms_1.FormsModule,
+                http_1.HttpModule,
+                http_1.JsonpModule
+            ],
+            declarations: [
+                dyna_form_component_1.DynaForm,
+                header_component_1.HeaderComponent,
+                list_component_1.ListComponent,
+                printer_component_1.PrinterComponent,
+                scanner_component_1.ScannerComponent,
+                popup_component_1.PopUp
+            ],
+            providers: [
+                http_1.HttpModule,
+                http_1.JsonpModule,
             ],
             exports: [
                 common_1.CommonModule,
                 forms_1.FormsModule,
+                dyna_form_component_1.DynaForm,
+                header_component_1.HeaderComponent,
+                list_component_1.ListComponent,
+                printer_component_1.PrinterComponent,
+                scanner_component_1.ScannerComponent,
+                popup_component_1.PopUp
             ]
         }), 
         __metadata('design:paramtypes', [])

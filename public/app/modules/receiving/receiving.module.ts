@@ -1,13 +1,18 @@
 import {NgModule} from '@angular/core';
-import {HttpModule, JsonpModule} from '@angular/http';
 //modules
 import {SharedModule} from '../shared/shared.module';
+//routing
+import {ReceivingRouting} from './receiving.routing';
+//components
+import {ReceivingComponent} from './receiving.component';
 
 @NgModule({
     imports: [
-        HttpModule,
-        JsonpModule,
-        SharedModule
+        SharedModule,
+        ReceivingRouting
+    ],
+    declarations: [
+        ReceivingComponent
     ]
 })
 export class ReceivingModule{}

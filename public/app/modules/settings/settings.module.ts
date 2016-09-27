@@ -1,13 +1,25 @@
 import {NgModule} from '@angular/core';
-import {HttpModule, JsonpModule} from '@angular/http';
 //modules
 import {SharedModule} from '../shared/shared.module';
+//routing
+import {SettingsRouting} from './settings.routing';
+//components
+import {SettingsComponent} from './settings.component';
+//services
+import {SettingsService} from './settings.service';
+import {UtilService} from '../../services/util/util.service';
 
 @NgModule({
     imports: [
-        HttpModule,
-        JsonpModule,
-        SharedModule
+        SharedModule,
+        SettingsRouting
+    ],
+    declarations: [
+        SettingsComponent
+    ],
+    providers: [
+        SettingsService,
+        UtilService
     ]
 })
 export class SettingsModule{}

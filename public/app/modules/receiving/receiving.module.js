@@ -9,18 +9,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
 //modules
 var shared_module_1 = require('../shared/shared.module');
+//routing
+var receiving_routing_1 = require('./receiving.routing');
+//components
+var receiving_component_1 = require('./receiving.component');
 var ReceivingModule = (function () {
     function ReceivingModule() {
     }
     ReceivingModule = __decorate([
         core_1.NgModule({
             imports: [
-                http_1.HttpModule,
-                http_1.JsonpModule,
-                shared_module_1.SharedModule
+                shared_module_1.SharedModule,
+                receiving_routing_1.ReceivingRouting
+            ],
+            declarations: [
+                receiving_component_1.ReceivingComponent
             ]
         }), 
         __metadata('design:paramtypes', [])

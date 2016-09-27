@@ -16,9 +16,9 @@ var RootComponent = (function () {
         this.router = router;
         this.pages = [
             new page_1.Page({
-                "label": "Settings",
-                "pageId": "settings",
-                "icon": "fa-cog"
+                "label": "Receiving",
+                "pageId": "receiving",
+                "icon": "fa-truck"
             }),
             new page_1.Page({
                 "label": "Repairs",
@@ -26,15 +26,15 @@ var RootComponent = (function () {
                 "icon": "fa-reply fa-flip-vertical"
             }),
             new page_1.Page({
-                "label": "Receiving",
-                "pageId": "receiving",
-                "icon": "fa-truck"
+                "label": "QC",
+                "pageId": "quality",
+                "icon": "fa-check-square-o"
             }),
             new page_1.Page({
-                "label": "QC",
-                "pageId": "qc",
-                "icon": "fa-check-square-o"
-            })
+                "label": "Settings",
+                "pageId": "settings",
+                "icon": "fa-cog"
+            }),
         ];
     }
     RootComponent = __decorate([

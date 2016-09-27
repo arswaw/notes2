@@ -1,0 +1,10 @@
+<form class="form-horizontal">
+    <div class="form-group">
+        <label class="col-md-2 control-label">Printer: </label>
+        <div class="col-md-10">
+            <select class="form-control" [(ngModel)]="printerId" name="select" (ngModelChange)="onChange($event)">
+                <option *ngFor="let opt of printers" value="{{opt.id}}">{{opt.name}} @ {{opt.compName}}</option>
+            </select>
+        </div>
+    </div>
+</form>

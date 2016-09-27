@@ -18,9 +18,9 @@ export class RootComponent {
     constructor(private router: Router){//for augury router view
         this.pages = [
             new Page({
-                "label": "Settings",
-                "pageId": "settings",
-                "icon": "fa-cog" 
+                "label": "Receiving",
+                "pageId": "receiving",
+                "icon": "fa-truck"
             }),
             new Page({
                 "label": "Repairs",
@@ -28,15 +28,15 @@ export class RootComponent {
                 "icon": "fa-reply fa-flip-vertical"
             }),
             new Page({
-                "label": "Receiving",
-                "pageId": "receiving",
-                "icon": "fa-truck"
+                "label": "QC",
+                "pageId": "quality",
+                "icon": "fa-check-square-o"
             }),
             new Page({
-                "label": "QC",
-                "pageId": "qc",
-                "icon": "fa-check-square-o"
-            })
+                "label": "Settings",
+                "pageId": "settings",
+                "icon": "fa-cog" 
+            }),
         ];
     }
 }
