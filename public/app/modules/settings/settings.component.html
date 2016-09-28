@@ -1,16 +1,31 @@
 <div class="container">
     <div class="panel-group" >
-        <div class="panel panel-default" *ngFor="let c of categories">
-            <div class="panel-heading" (click)="c.active = !c.active">
+        <div class="panel panel-default">
+            <div class="panel-heading" (click)="categories.item = !categories.item">
                 <h4 class="panel-title">
                     <a role="button">
-                        {{c.label}}
+                        Repair Items
                     </a>
                 </h4>
             </div>
-            <div class="panel-collapse collapse in" [ngClass]="{hidden: !c.active}">
+            <div class="panel-collapse collapse in" [ngClass]="{hidden: !categories.item}">
                 <div class="panel-body">
-                    {{c.label}}
+                    <list [columns]="itemsCols" [rows]="items" (select)="select($event)" (change)="change($event)"></list>
+                    {{selected}}
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading" (click)="categories.user = !categories.user">
+                <h4 class="panel-title">
+                    <a role="button">
+                        Users
+                    </a>
+                </h4>
+            </div>
+            <div class="panel-collapse collapse in" [ngClass]="{hidden: !categories.user}">
+                <div class="panel-body">
+                    
                 </div>
             </div>
         </div>

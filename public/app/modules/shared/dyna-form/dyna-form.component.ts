@@ -1,5 +1,4 @@
 import {Component, Input} from '@angular/core';
-import {Field} from '@models/field/field';
 
 @Component({
     moduleId: module.id,

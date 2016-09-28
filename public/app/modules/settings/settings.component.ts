@@ -8,10 +8,19 @@ import {SettingsService} from './settings.service';
     templateUrl: 'settings.component.html'
 })
 export class SettingsComponent implements OnInit{
-    public categories: Array<any>;
+    public categories: any;
+    public items: Array<any>;
+    public itemsCols: Array<any>;
+
+    private selected: any;
 
     constructor(private settings: SettingsService){
-        this.categories = [];
+        this.categories = {
+            items: false,
+            users: false
+        };
+        this.items = [];
+        this.itemsCols = [];
     }
 
     ngOnInit(){
@@ -19,18 +28,7 @@ export class SettingsComponent implements OnInit{
     }
 
     private catInit(){
-        this.categories = [
-            {
-                "label": "Repair Items",
-                "type": "category",
-                "active": false
-            },
-            {
-                "label": "Users",
-                "type": "category",
-                "active": false
-            }
-        ]
+
         this.settings.getItems().subscribe(
             (val) => this.itemsInit(val),
             (err) => console.log(err)
@@ -38,6 +36,29 @@ export class SettingsComponent implements OnInit{
     }
 
     private itemsInit(items: any){
-        console.log(items);
+        console.log(items)
+        this.itemsCols = [
+            {
+                label: 'Description',
+                id: 'desc',
+                sort: false,
+                type: 'static'
+            },
+            {
+                label: 'Item Id',
+                id: 'itemId',
+                sort: false,
+                type: 'static'
+            }
+        ]
+        this.items = items;
+    }
+
+    private select(event){
+        this.selected = event;
+    }
+
+    private change(event){
+        console.log(event)
     }
 }

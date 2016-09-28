@@ -1,6 +1,6 @@
 "use strict";
 // msg = message
-var guid_service_1 = require('@services/guid/guid.service');
+var guid_service_1 = require('../../services/guid/guid.service');
 var Msg = (function () {
     function Msg(options) {
         this.title = options.title;

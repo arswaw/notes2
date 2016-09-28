@@ -1,5 +1,5 @@
 // msg = message
-import {GuidService} from '@services/guid/guid.service';
+import {GuidService} from '../../services/guid/guid.service';
 
 export class Msg {
     public title: string;
