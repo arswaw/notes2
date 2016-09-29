@@ -10,8 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
+//services
 var util_service_1 = require('../../services/util/util.service');
 var auth_service_1 = require('../../services/auth/auth.service');
+//models
+var text_field_1 = require('../../models/field/text-field');
+var radio_field_1 = require('../../models/field/radio-field');
 var SettingsService = (function () {
     function SettingsService(http, auth, util) {
         this.http = http;
@@ -27,6 +31,13 @@ var SettingsService = (function () {
             return json;
         })
             .catch(this.util.handleError);
+    };
+    SettingsService.prototype.searchInit = function () {
+        var arr = [
+            new text_field_1.TextField({ label: 'Item Id or SKU', required: true }),
+            new radio_field_1.RadioField({ label: 'Type', options: [{ key: 'itemId', value: 'Item Id' }, { key: 'sku', value: 'SKU' }], required: true })
+        ];
+        return arr;
     };
     SettingsService = __decorate([
         core_1.Injectable(), 

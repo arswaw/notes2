@@ -1,0 +1,6 @@
+<div *ngFor="let msg of msgs">
+    <div class="alert alert-dismissible" [ngClass]="{'alert-success': msg.type == 'good', 'alert-info': msg.type == 'info', 'alert-warning': msg.type == 'warn', 'alert-danger': msg.type == 'bad'}" role="alert">
+        <button type="button" class="close" (click)=closeMsg(msg)><span aria-hidden="true">&times;</span></button>
+        <strong>{{msg.title}}</strong> {{msg.body}}
+    </div>
+</div>

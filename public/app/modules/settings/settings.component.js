@@ -11,22 +11,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 //services
 var settings_service_1 = require('./settings.service');
+var spinner_service_1 = require('../../services/spinner/spinner.service');
 var SettingsComponent = (function () {
-    function SettingsComponent(settings) {
+    function SettingsComponent(settings, spin) {
         this.settings = settings;
+        this.spin = spin;
         this.categories = {
             items: false,
             users: false
         };
         this.items = [];
         this.itemsCols = [];
+        this.searchFields = [];
+        this.searchPopup = false;
+        spin.clearSpin();
     }
     SettingsComponent.prototype.ngOnInit = function () {
         this.catInit();
+        this.searchFields = this.settings.searchInit();
     };
     SettingsComponent.prototype.catInit = function () {
         var _this = this;
-        this.settings.getItems().subscribe(function (val) { return _this.itemsInit(val); }, function (err) { return console.log(err); });
+        this.spin.spinStart('items');
+        this.settings.getItems().subscribe(function (val) { return _this.itemsInit(val); }, function (err) { return console.log(err); }, function () { return _this.spin.spinStop('items'); });
     };
     SettingsComponent.prototype.itemsInit = function (items) {
         console.log(items);
@@ -49,8 +56,18 @@ var SettingsComponent = (function () {
     SettingsComponent.prototype.select = function (event) {
         this.selected = event;
     };
-    SettingsComponent.prototype.change = function (event) {
-        console.log(event);
+    SettingsComponent.prototype.selectPart = function (event) {
+    };
+    SettingsComponent.prototype.search = function (event) {
+        this.searchPopup = false;
+    };
+    SettingsComponent.prototype.addItem = function () {
+        console.log('item');
+        this.searchPopup = true;
+    };
+    SettingsComponent.prototype.addPart = function () {
+        console.log('part');
+        this.searchPopup = true;
     };
     SettingsComponent = __decorate([
         core_1.Component({
@@ -58,7 +75,7 @@ var SettingsComponent = (function () {
             selector: 'tech-notes',
             templateUrl: 'settings.component.html'
         }), 
-        __metadata('design:paramtypes', [settings_service_1.SettingsService])
+        __metadata('design:paramtypes', [settings_service_1.SettingsService, spinner_service_1.SpinnerService])
     ], SettingsComponent);
     return SettingsComponent;
 }());

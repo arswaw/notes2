@@ -10,8 +10,12 @@
             </div>
             <div class="panel-collapse collapse in" [ngClass]="{hidden: !categories.item}">
                 <div class="panel-body">
-                    <list [columns]="itemsCols" [rows]="items" (select)="select($event)" (change)="change($event)"></list>
-                    {{selected}}
+                    <button class="btn btn-primary spacer" (click)="addItem()">Add Item</button>
+                    <list [columns]="itemsCols" [rows]="items" (select)="select($event)"></list>
+                    <div *ngIf="selected">
+                        <list [columns]="itemsCols" [rows]="selected.parts" (select)="selectPart($event)"></list>
+                        <button class="btn btn-primary" (click)="addPart()">Add Part</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -31,3 +35,4 @@
         </div>
     </div>
 </div>
+<popup [fields]="searchFields" [show]="searchPopup" [title]="'Find Item'" (submited)="search($event)"></popup>

@@ -14,11 +14,10 @@ export class PopUp{
     @Output() submited = new EventEmitter();
 
     private close(){
-        this.show = false;
+        this.submited.emit({fields: this.fields, close: true});
     }
 
     private submit(){
-        console.log(this.fields);
-        this.submited.emit(this.fields);
+        this.submited.emit({fields: this.fields, close: false});
     }
 }

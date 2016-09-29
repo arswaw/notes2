@@ -10,6 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
+//components
+var spinner_component_1 = require('../../services/spinner/spinner.component');
+var message_component_1 = require('../../services/message/message.component');
+//models
 var page_1 = require('../../models/page/page');
 var RootComponent = (function () {
     function RootComponent(router) {
@@ -43,7 +47,10 @@ var RootComponent = (function () {
             selector: 'tech-notes',
             templateUrl: 'root.component.html',
             styleUrls: ['root.component.css'],
-            directives: []
+            directives: [
+                spinner_component_1.SpinnerComponent,
+                message_component_1.MessageComponent
+            ]
         }), 
         __metadata('design:paramtypes', [router_1.Router])
     ], RootComponent);

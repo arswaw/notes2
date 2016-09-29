@@ -1,6 +1,9 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
-
+//components
+import {SpinnerComponent} from '../../services/spinner/spinner.component';
+import {MessageComponent} from '../../services/message/message.component';
+//models
 import {Page} from '../../models/page/page';
 
 @Component({
@@ -9,7 +12,8 @@ import {Page} from '../../models/page/page';
     templateUrl: 'root.component.html',
     styleUrls: ['root.component.css'],
     directives: [
-
+        SpinnerComponent,
+        MessageComponent
     ]
 })
 export class RootComponent {

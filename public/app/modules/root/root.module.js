@@ -26,6 +26,8 @@ var settings_module_1 = require('../settings/settings.module');
 //services
 var auth_service_1 = require('../../services/auth/auth.service');
 var util_service_1 = require('../../services/util/util.service');
+var spinner_service_1 = require('../../services/spinner/spinner.service');
+var message_service_1 = require('../../services/message/message.service');
 //routing
 var root_routing_1 = require('./root.routing');
 var RootModule = (function () {
@@ -53,6 +55,8 @@ var RootModule = (function () {
                 root_routing_1.appRoutingProviders,
                 auth_service_1.AuthService,
                 util_service_1.UtilService,
+                spinner_service_1.SpinnerService,
+                message_service_1.MessageService,
                 { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy }
             ],
             bootstrap: [root_component_1.RootComponent]

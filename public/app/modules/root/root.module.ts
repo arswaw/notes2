@@ -17,6 +17,8 @@ import {SettingsModule} from '../settings/settings.module';
 //services
 import {AuthService} from '../../services/auth/auth.service';
 import {UtilService} from '../../services/util/util.service';
+import {SpinnerService} from '../../services/spinner/spinner.service';
+import {MessageService} from '../../services/message/message.service';
 //routing
 import {appRoutingProviders, RootRouting} from './root.routing';
 
@@ -41,6 +43,8 @@ import {appRoutingProviders, RootRouting} from './root.routing';
         appRoutingProviders,
         AuthService,
         UtilService,
+        SpinnerService,
+        MessageService,
         {provide: LocationStrategy, useClass: HashLocationStrategy}
     ],
     bootstrap: [RootComponent]

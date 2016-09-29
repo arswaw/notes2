@@ -14,11 +14,10 @@ var PopUp = (function () {
         this.submited = new core_1.EventEmitter();
     }
     PopUp.prototype.close = function () {
-        this.show = false;
+        this.submited.emit({ fields: this.fields, close: true });
     };
     PopUp.prototype.submit = function () {
-        console.log(this.fields);
-        this.submited.emit(this.fields);
+        this.submited.emit({ fields: this.fields, close: false });
     };
     __decorate([
         core_1.Input(), 
