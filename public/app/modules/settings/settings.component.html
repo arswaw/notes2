@@ -11,7 +11,7 @@
             <div class="panel-collapse collapse in" [ngClass]="{hidden: !categories.item}">
                 <div class="panel-body">
                     <button class="btn btn-primary spacer" (click)="addItem()">Add Item</button>
-                    <list [columns]="itemsCols" [rows]="items" (select)="select($event)"></list>
+                    <list [columns]="itemsCols" [rows]="items" (select)="selectItem($event)"></list>
                     <div *ngIf="selected">
                         <list [columns]="itemsCols" [rows]="selected.parts" (select)="selectPart($event)"></list>
                         <button class="btn btn-primary" (click)="addPart()">Add Part</button>
@@ -35,4 +35,4 @@
         </div>
     </div>
 </div>
-<popup [fields]="searchFields" [show]="searchPopup" [title]="'Find Item'" (submited)="search($event)"></popup>
+<popup [fields]="searchFields" [show]="searchPopup" [title]="searchTitle" [id]="searchId" (submited)="search($event)"></popup>

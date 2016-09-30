@@ -14,10 +14,10 @@ var PopUp = (function () {
         this.submited = new core_1.EventEmitter();
     }
     PopUp.prototype.close = function () {
-        this.submited.emit({ fields: this.fields, close: true });
+        this.submited.emit({ fields: this.fields, close: true, id: this.id });
     };
     PopUp.prototype.submit = function () {
-        this.submited.emit({ fields: this.fields, close: false });
+        this.submited.emit({ fields: this.fields, close: false, id: this.id });
     };
     __decorate([
         core_1.Input(), 
@@ -31,6 +31,10 @@ var PopUp = (function () {
         core_1.Input(), 
         __metadata('design:type', String)
     ], PopUp.prototype, "title", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], PopUp.prototype, "id", void 0);
     __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)

@@ -16,7 +16,7 @@ module.exports = function(app){
 		});
 	});
 
-	app.get('/items',  function(req, res){
+	app.get('/items', function(req, res){
 		//log.log(req.headers.user, 'getting items list', 'info', 'router.js,/items');
 		l.getItems(function(err, result){
 			response(err, result, req, res);
@@ -30,6 +30,11 @@ module.exports = function(app){
 	});
 
 	//post requests
+	app.post('/items', function(req, res){
+		console.log(req.body);
+		res.json({status: 'ok'});
+	})
+
 	app.post('/login', function(req, res){
 		auth.login(req.body, function(err, result){
 			if(err){

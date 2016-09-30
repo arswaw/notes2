@@ -34,11 +34,22 @@ var SettingsService = (function () {
     };
     SettingsService.prototype.searchInit = function () {
         var arr = [
-            new text_field_1.TextField({ label: 'Item Id or SKU', required: true }),
-            new radio_field_1.RadioField({ label: 'Type', options: [{ key: 'itemId', value: 'Item Id' }, { key: 'sku', value: 'SKU' }], required: true })
+            new text_field_1.TextField({ label: 'Item Id or SKU', fieldId: 'value', required: true }),
+            new radio_field_1.RadioField({ label: 'Type', fieldId: 'type', options: [{ key: 'itemId', value: 'Item Id' }, { key: 'sku', value: 'SKU' }, { key: 'intId', value: 'Internal Id' }], required: true })
         ];
         return arr;
     };
+    SettingsService.prototype.addItem = function (obj) {
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json', 'token': this.auth.getToken() });
+        var options = new http_1.RequestOptions({ headers: headers });
+        return this.http.post('/items', obj, options)
+            .map(function (res) {
+            var body = res.json();
+            return body;
+        })
+            .catch(this.util.handleError);
+    };
+    ;
     SettingsService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http, auth_service_1.AuthService, util_service_1.UtilService])

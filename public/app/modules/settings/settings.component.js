@@ -24,6 +24,8 @@ var SettingsComponent = (function () {
         this.itemsCols = [];
         this.searchFields = [];
         this.searchPopup = false;
+        this.searchId = '';
+        this.searchTitle = '';
         spin.clearSpin();
     }
     SettingsComponent.prototype.ngOnInit = function () {
@@ -53,20 +55,48 @@ var SettingsComponent = (function () {
         ];
         this.items = items;
     };
-    SettingsComponent.prototype.select = function (event) {
+    SettingsComponent.prototype.selectItem = function (event) {
         this.selected = event;
     };
     SettingsComponent.prototype.selectPart = function (event) {
     };
     SettingsComponent.prototype.search = function (event) {
         this.searchPopup = false;
+        if (!event.close) {
+            var value = void 0;
+            var type = void 0;
+            for (var i in event.fields) {
+                var field = event.fields[i];
+                if (field.fieldId == 'value') {
+                    value = field.value;
+                }
+                if (field.fieldId == 'type') {
+                    type = field.value;
+                }
+            }
+            var obj = {
+                value: value,
+                type: type,
+                part: false,
+                parent: ''
+            };
+            if (event.id == 'part') {
+                obj.part = true;
+                obj.parent = this.selected.itemId;
+            }
+            this.settings.addItem(obj).subscribe(function (val) { return console.log(val); }, function (err) { return console.log(err); });
+        }
     };
     SettingsComponent.prototype.addItem = function () {
-        console.log('item');
+        this.searchId = 'item';
+        this.searchTitle = 'Add Item';
+        this.searchFields = this.settings.searchInit();
         this.searchPopup = true;
     };
     SettingsComponent.prototype.addPart = function () {
-        console.log('part');
+        this.searchId = 'part';
+        this.searchTitle = 'Add Part';
+        this.searchFields = this.settings.searchInit();
         this.searchPopup = true;
     };
     SettingsComponent = __decorate([

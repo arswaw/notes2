@@ -9,13 +9,14 @@ import {SpinnerService} from '../../services/spinner/spinner.service';
     templateUrl: 'settings.component.html'
 })
 export class SettingsComponent implements OnInit{
-    public categories: any;
-    public items: Array<any>;
-    public itemsCols: Array<any>;
-
+    private categories: any;
+    private items: Array<any>;
+    private itemsCols: Array<any>;
     private selected: any;
-    public searchFields: Array<any>;
-    public searchPopup: boolean;
+    private searchFields: Array<any>;
+    private searchPopup: boolean;
+    private searchId: string;
+    private searchTitle: string;
 
     constructor(private settings: SettingsService, private spin: SpinnerService){
         this.categories = {
@@ -26,6 +27,8 @@ export class SettingsComponent implements OnInit{
         this.itemsCols = [];
         this.searchFields = [];
         this.searchPopup = false;
+        this.searchId = '';
+        this.searchTitle = '';
         spin.clearSpin();
     }
 
@@ -33,6 +36,7 @@ export class SettingsComponent implements OnInit{
         this.catInit();
         this.searchFields = this.settings.searchInit();
     }
+
 
     private catInit(){
         this.spin.spinStart('items');
@@ -62,7 +66,7 @@ export class SettingsComponent implements OnInit{
         this.items = items;
     }
 
-    private select(event){
+    private selectItem(event){
         this.selected = event;
     }
 
@@ -72,15 +76,46 @@ export class SettingsComponent implements OnInit{
 
     private search(event){
         this.searchPopup = false;
+        if(!event.close){
+            let value: string;
+            let type: string;
+            for(let i in event.fields){
+                let field = event.fields[i];
+                if(field.fieldId == 'value'){
+                    value = field.value;
+                }
+                if(field.fieldId == 'type'){
+                    type = field.value;
+                }
+            }
+            let obj = {
+                value: value,
+                type: type,
+                part: false,
+                parent: ''
+            };
+            if(event.id == 'part'){
+                obj.part = true;
+                obj.parent = this.selected.itemId;
+            }
+            this.settings.addItem(obj).subscribe(
+                (val) => console.log(val),
+                (err) => console.log(err)
+            )
+        }
     }
 
     private addItem(){
-        console.log('item');
+        this.searchId = 'item';
+        this.searchTitle = 'Add Item'
+        this.searchFields = this.settings.searchInit();
         this.searchPopup = true;
     }
 
     private addPart(){
-        console.log('part');
+        this.searchId = 'part';
+        this.searchTitle = 'Add Part';
+        this.searchFields = this.settings.searchInit();
         this.searchPopup = true;
     }
 
