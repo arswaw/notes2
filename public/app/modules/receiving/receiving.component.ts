@@ -55,6 +55,32 @@ export class ReceivingComponent implements OnInit{
         }
     }
 
+    private change(event){
+        if(event.sku != undefined){
+            for(let i in this.rma.items){
+                let item = this.rma.items[i];
+                if(item._id == event._id){
+                    let sku = this.skus(event.description);
+                    this.rma.items[i].sku = sku;
+                }
+            }
+        }
+    }
+
+    private skus(desc): string{
+        let skus = {
+            'SWAGWAY X1 - Black': 'HE-SBW-VTK-85370-2',
+            'SWAGWAY X1 - Blue': 'HE-SBW-VTK-85370-4',
+            'SWAGWAY X1 - Dark Red': 'HE-SBW-VTK-85370-6',
+            'SWAGWAY X1 - Gold': 'HE-SBW-VTK-85370-8',
+            'SWAGWAY X1 - Green': 'HE-SBW-VTK-85370-3',
+            'SWAGWAY X1 - Pink': 'HE-SBW-VTK-85370-7',
+            'SWAGWAY X1 - Red': 'HE-SBW-VTK-85370-1',
+            'SWAGWAY X1 - White': 'HE-SBW-VTK-85370-5',
+        };
+        return skus[desc];
+    }
+
     private received(){
         this.spin.spinStart('receive');
         let obj = {
