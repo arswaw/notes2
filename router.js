@@ -16,7 +16,7 @@ module.exports = function(app){
 		});
 	});
 
-	app.get('/items', function(req, res){
+	app.get('/items', checkToken, function(req, res){
 		//log.log(req.headers.user, 'getting items list', 'info', 'router.js,/items');
 		l.getItems(function(err, result){
 			response(err, result, req, res);
@@ -30,7 +30,7 @@ module.exports = function(app){
 	});
 
 	//post requests
-	app.post('/items', function(req, res){
+	app.post('/items', checkToken, function(req, res){
 		l.checkItem(req.body, function(err, result){
 			response(err, result, req, res);
 		});

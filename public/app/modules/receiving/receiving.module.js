@@ -15,6 +15,9 @@ var shared_module_1 = require('../shared/shared.module');
 var receiving_routing_1 = require('./receiving.routing');
 //components
 var receiving_component_1 = require('./receiving.component');
+var scan_wrap_component_1 = require('./scan-wrap.component');
+//services
+var receiving_service_1 = require('./receiving.service');
 var ReceivingModule = (function () {
     function ReceivingModule() {
     }
@@ -25,7 +28,11 @@ var ReceivingModule = (function () {
                 receiving_routing_1.ReceivingRouting
             ],
             declarations: [
-                receiving_component_1.ReceivingComponent
+                receiving_component_1.ReceivingComponent,
+                scan_wrap_component_1.ScanWrapComponent
+            ],
+            providers: [
+                receiving_service_1.ReceivingService
             ]
         }), 
         __metadata('design:paramtypes', [])

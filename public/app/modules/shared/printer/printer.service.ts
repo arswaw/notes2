@@ -11,7 +11,8 @@ export class PrintService {
     public getPrinters(): Observable<any>{
         let headers = new Headers({ 'token': this.auth.getToken() });
         let options = new RequestOptions({ headers: headers });
-        return this.http.get('print')
+        console.log(this.auth.getToken());
+        return this.http.get('print', options)
             .map(function(res: Response){
                 let body = res.json();
                 return body;

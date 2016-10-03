@@ -14,7 +14,7 @@ var ItemDetail = (function () {
         for (var i in arr) {
             var loc = new location_1.Location(arr[i]);
             if (loc.qty > 0) {
-                hold.push();
+                hold.push(loc);
             }
         }
         return hold;

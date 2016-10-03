@@ -12,6 +12,7 @@ export class AuthService {
     private _token: string;
     private _user: string;
     private _pages: Array<Page>;
+    private _settings: any;
 
     private usernameSource = new Subject<string>();
     public username = this.usernameSource.asObservable();
@@ -46,6 +47,14 @@ export class AuthService {
         this.pagesSource.next(pages);
     }
 
+    public setToken(token: string){
+        this._token = token;
+    }
+
+    public setSettings(obj){
+        this._settings = obj;
+    }
+
     //getters
     public getUser(): string{
         return this._user;
@@ -57,5 +66,9 @@ export class AuthService {
 
     public getPages(): Array<Page>{
         return this._pages;
+    }
+
+    public getSettings(): any{
+        return this._settings;
     }
 }

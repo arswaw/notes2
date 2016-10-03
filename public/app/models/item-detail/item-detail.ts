@@ -29,9 +29,8 @@ export class ItemDetail {
         for(let i in arr){
             let loc = new Location(arr[i]);
             if(loc.qty > 0){
-                hold.push();
+                hold.push(loc);
             }
-
         }
         return hold;
     }

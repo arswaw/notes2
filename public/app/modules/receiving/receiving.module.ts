@@ -5,6 +5,9 @@ import {SharedModule} from '../shared/shared.module';
 import {ReceivingRouting} from './receiving.routing';
 //components
 import {ReceivingComponent} from './receiving.component';
+import {ScanWrapComponent} from './scan-wrap.component';
+//services
+import {ReceivingService} from './receiving.service';
 
 @NgModule({
     imports: [
@@ -12,7 +15,11 @@ import {ReceivingComponent} from './receiving.component';
         ReceivingRouting
     ],
     declarations: [
-        ReceivingComponent
+        ReceivingComponent,
+        ScanWrapComponent
+    ],
+    providers: [
+        ReceivingService
     ]
 })
 export class ReceivingModule{}

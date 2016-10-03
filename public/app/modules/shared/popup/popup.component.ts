@@ -14,11 +14,31 @@ export class PopUp{
 
     @Output() submited = new EventEmitter();
 
+    private error: boolean;
+    private errText: string;
+
+    constructor(){
+        this.error = false;
+        this.errText = '';
+    }
+
     private close(){
+        this.error = false;
         this.submited.emit({fields: this.fields, close: true, id: this.id});
     }
 
     private submit(){
-        this.submited.emit({fields: this.fields, close: false, id: this.id});
+        for(let i in this.fields){
+            let field = this.fields[i];
+            if(field.required){
+                if(field.value == ''){
+                    this.error = true;
+                    this.errText = 'Required field blank or not selected.'
+                }
+            }
+        }
+        if(!this.error){
+            this.submited.emit({fields: this.fields, close: false, id: this.id});
+        }
     }
 }

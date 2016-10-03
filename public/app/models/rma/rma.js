@@ -3,6 +3,7 @@ var address_1 = require('./address');
 var item_1 = require('./item');
 var Rma = (function () {
     function Rma(arr) {
+        this.received = false;
         if (arr.length > 0) {
             this.received = this.getReceived(arr);
             this.setAction(arr);
@@ -13,7 +14,7 @@ var Rma = (function () {
             this.storefront = this.sf(arr);
             this.shipping = new address_1.Address(arr[0].columns, false);
             this.billing = new address_1.Address(arr[0].columns, true);
-            this.name(arr[0]);
+            this.nameParse(arr[0]);
             this.parseItems(arr);
             this.orderNumber = arr[0].columns.transactionnumber;
             this.ship_via = 'ground';
@@ -83,12 +84,13 @@ var Rma = (function () {
         }
         return item;
     };
-    Rma.prototype.name = function (line) {
+    Rma.prototype.nameParse = function (line) {
         var cut = line.columns.entity.name.split(' ');
         cut.shift();
         //this.firstName = cut[0];
         this.lastName = cut.pop();
         this.firstName = cut.join(' ');
+        this.name = this.firstName + ' ' + this.lastName;
     };
     Rma.prototype.getReceived = function (arr) {
         var hold = false;

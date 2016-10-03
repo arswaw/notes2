@@ -11,6 +11,9 @@
                 </form>
             </div>
             <div class="modal-footer">
+                <div *ngIf="error" class="alert alert-danger">
+                    {{errText}}
+                </div>
                 <button type="button" class="btn btn-default" (click)="close()">Close</button>
                 <button type="button" class="btn btn-primary" (click)="submit()">Submit</button>
             </div>

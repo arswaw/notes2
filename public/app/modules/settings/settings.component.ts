@@ -102,13 +102,17 @@ export class SettingsComponent implements OnInit{
                 obj.parent = this.selected.itemId;
             }
             this.settings.addItem(obj).subscribe(
-                (val) => console.log(val),
+                (val) => this.procItem(val),
                 (err) => console.log(err)
             )
         }
     }
 
-    private 
+    private procItem(obj){
+        console.log(obj);
+        let item = new ItemDetail(obj);
+        console.log(item);
+    }
 
     private addItem(){
         this.searchId = 'item';

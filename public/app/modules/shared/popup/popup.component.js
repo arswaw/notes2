@@ -12,12 +12,26 @@ var core_1 = require('@angular/core');
 var PopUp = (function () {
     function PopUp() {
         this.submited = new core_1.EventEmitter();
+        this.error = false;
+        this.errText = '';
     }
     PopUp.prototype.close = function () {
+        this.error = false;
         this.submited.emit({ fields: this.fields, close: true, id: this.id });
     };
     PopUp.prototype.submit = function () {
-        this.submited.emit({ fields: this.fields, close: false, id: this.id });
+        for (var i in this.fields) {
+            var field = this.fields[i];
+            if (field.required) {
+                if (field.value == '') {
+                    this.error = true;
+                    this.errText = 'Required field blank or not selected.';
+                }
+            }
+        }
+        if (!this.error) {
+            this.submited.emit({ fields: this.fields, close: false, id: this.id });
+        }
     };
     __decorate([
         core_1.Input(), 

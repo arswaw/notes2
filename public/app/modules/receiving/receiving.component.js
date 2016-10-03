@@ -9,17 +9,135 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var router_1 = require('@angular/router');
+//services
+var receiving_service_1 = require('./receiving.service');
+var spinner_service_1 = require('../../services/spinner/spinner.service');
+//models
+var rma_1 = require('../../models/rma/rma');
 var ReceivingComponent = (function () {
-    function ReceivingComponent() {
+    function ReceivingComponent(route, comms, router, spin) {
+        this.route = route;
+        this.comms = comms;
+        this.router = router;
+        this.spin = spin;
+        this.page = 'receiving';
+        this.sel = false;
+        this.charger = '';
+        this.serial = '';
+        this.selected = {};
+        spin.clearSpin();
+        var obj = comms.recInit();
+        this.columns = obj.columns;
+        this.fields = obj.fields;
+        this.rma = new rma_1.Rma([]);
+        this.printerId = this.comms.getDefaultPrinter();
     }
+    ReceivingComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.id = parseInt(this.route.snapshot.params['id'], 10).toString();
+        this.spin.spinStart('rma');
+        this.comms.getRMA(this.id)
+            .subscribe(function (rma) { return _this.rma = new rma_1.Rma(rma); }, function (err) { return console.log(err); }, function () { return _this.procRma(); });
+    };
+    ReceivingComponent.prototype.procRma = function () {
+        console.log(this.rma);
+        this.spin.spinStop('rma');
+        if (this.swagCheck()) {
+            this.columns = this.comms.getSwagColumns();
+        }
+    };
+    ReceivingComponent.prototype.received = function () {
+        var _this = this;
+        this.spin.spinStart('receive');
+        var obj = {
+            id: this.id,
+            fields: [],
+            sku: this.selected.sku,
+            header: this.action(),
+            location: this.loc(),
+            printer: this.printerId,
+            voucher: false,
+            sn: ''
+        };
+        obj.fields[0] = 'SKU: ' + this.selected.sku;
+        obj.fields[1] = 'NS#: ' + this.selected.name;
+        obj.fields[2] = 'RA#: ' + this.id;
+        obj.fields[3] = 'Desc: ' + this.selected.description;
+        obj.fields[4] = 'Name: ' + this.rma.name;
+        if (this.rma.actionId == '9') {
+            obj.fields[5] = 'Charger: ' + this.charger;
+            obj.voucher = true;
+        }
+        this.comms.received(obj)
+            .subscribe(function (rma) { return _this.spin.spinStop('receive'); }, function (err) { return console.log(err); }, function () { return _this.router.navigate(['/receive']); });
+    };
+    ReceivingComponent.prototype.swagCheck = function () {
+        var bol = false;
+        for (var i in this.rma.items) {
+            var item = this.rma.items[i];
+            var index = item.sku.indexOf('HE-SBW-VTK-85370');
+            if (index > -1) {
+                bol = true;
+            }
+        }
+        return bol;
+    };
+    ReceivingComponent.prototype.select = function (event) {
+        this.sel = true;
+        this.selected = event;
+    };
+    ReceivingComponent.prototype.printerChanged = function (event) {
+        this.printerId = event.value;
+    };
+    ReceivingComponent.prototype.loc = function () {
+        var id = this.rma.actionId;
+        if (id == '9') {
+            return 60;
+        }
+        else {
+            return 48;
+        }
+    };
+    ReceivingComponent.prototype.action = function () {
+        var id = this.rma.actionId;
+        if (id == '1') {
+            return 'Refund';
+        }
+        else if (id == '2') {
+            return 'Refund';
+        }
+        else if (id == '3') {
+            return 'Exchange';
+        }
+        else if (id == '5') {
+            return 'Repair';
+        }
+        else if (id == '6') {
+            return 'Refused';
+        }
+        else if (id == '8') {
+            return 'Free Repair';
+        }
+        else if (id == '9') {
+            return 'Voucher';
+        }
+        else if (id == '10') {
+            return 'Battery Swap';
+        }
+        else if (id == '11') {
+            return 'Advanced';
+        }
+        else if (id == '12') {
+            return 'Replaced';
+        }
+    };
     ReceivingComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            selector: 'tech-notes',
             templateUrl: 'receiving.component.html',
-            directives: []
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [router_1.ActivatedRoute, receiving_service_1.ReceivingService, router_1.Router, spinner_service_1.SpinnerService])
     ], ReceivingComponent);
     return ReceivingComponent;
 }());

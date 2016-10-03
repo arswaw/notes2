@@ -12,6 +12,8 @@ var core_1 = require('@angular/core');
 //services
 var settings_service_1 = require('./settings.service');
 var spinner_service_1 = require('../../services/spinner/spinner.service');
+//models
+var item_detail_1 = require('../../models/item-detail/item-detail');
 var SettingsComponent = (function () {
     function SettingsComponent(settings, spin) {
         this.settings = settings;
@@ -61,6 +63,7 @@ var SettingsComponent = (function () {
     SettingsComponent.prototype.selectPart = function (event) {
     };
     SettingsComponent.prototype.search = function (event) {
+        var _this = this;
         this.searchPopup = false;
         if (!event.close) {
             var value = void 0;
@@ -84,8 +87,13 @@ var SettingsComponent = (function () {
                 obj.part = true;
                 obj.parent = this.selected.itemId;
             }
-            this.settings.addItem(obj).subscribe(function (val) { return console.log(val); }, function (err) { return console.log(err); });
+            this.settings.addItem(obj).subscribe(function (val) { return _this.procItem(val); }, function (err) { return console.log(err); });
         }
+    };
+    SettingsComponent.prototype.procItem = function (obj) {
+        console.log(obj);
+        var item = new item_detail_1.ItemDetail(obj);
+        console.log(item);
     };
     SettingsComponent.prototype.addItem = function () {
         this.searchId = 'item';

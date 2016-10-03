@@ -9,21 +9,45 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var router_1 = require('@angular/router');
+//services
+var auth_service_1 = require('../../services/auth/auth.service');
+//models
+var page_1 = require('../../models/page/page');
 var LoginComponent = (function () {
-    function LoginComponent() {
+    function LoginComponent(auth, router) {
+        this.auth = auth;
+        this.router = router;
         this.user = '';
         this.pass = '';
     }
     LoginComponent.prototype.login = function () {
-        console.log(this.user);
-        console.log(this.pass);
+        var _this = this;
+        this.auth.login(this.user, this.pass).subscribe(function (val) { return _this.userInit(val); }, function (err) { return console.log(err); });
+    };
+    LoginComponent.prototype.userInit = function (user) {
+        var hold = [];
+        for (var i in user.roles) {
+            var role = user.roles[i];
+            for (var i2 in role.permissions.view) {
+                var per = role.permissions.view[i2];
+                var page = new page_1.Page(per);
+                hold.push(page);
+            }
+        }
+        this.auth.setUser(user.user);
+        this.auth.setPages(hold);
+        this.auth.setToken(user.token.value);
+        this.auth.setSettings(user.settings);
+        var home = user.settings.home;
+        this.router.navigate([home]);
     };
     LoginComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             templateUrl: 'login.component.html'
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [auth_service_1.AuthService, router_1.Router])
     ], LoginComponent);
     return LoginComponent;
 }());

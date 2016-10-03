@@ -43,6 +43,12 @@ var AuthService = (function () {
         this._pages = pages;
         this.pagesSource.next(pages);
     };
+    AuthService.prototype.setToken = function (token) {
+        this._token = token;
+    };
+    AuthService.prototype.setSettings = function (obj) {
+        this._settings = obj;
+    };
     //getters
     AuthService.prototype.getUser = function () {
         return this._user;
@@ -52,6 +58,9 @@ var AuthService = (function () {
     };
     AuthService.prototype.getPages = function () {
         return this._pages;
+    };
+    AuthService.prototype.getSettings = function () {
+        return this._settings;
     };
     AuthService = __decorate([
         core_1.Injectable(), 

@@ -7,6 +7,7 @@ export class Rma {
     public actionName: string;
     public firstName: string;
     public lastName: string;
+    public name: string;
     public email: string;
     public phone: string;
     public orderNumber: string;
@@ -20,6 +21,7 @@ export class Rma {
     public billing: Address;
     public items: Item[];
     constructor(arr: Array<any>){
+        this.received = false;
         if(arr.length > 0){
             this.received = this.getReceived(arr);
             this.setAction(arr);
@@ -30,7 +32,7 @@ export class Rma {
             this.storefront = this.sf(arr);
             this.shipping = new Address(arr[0].columns, false);
             this.billing = new Address(arr[0].columns, true);
-            this.name(arr[0]);
+            this.nameParse(arr[0]);
             this.parseItems(arr);
             this.orderNumber = arr[0].columns.transactionnumber;
             this.ship_via = 'ground';
@@ -108,12 +110,13 @@ export class Rma {
         return item;
     }
 
-    private name(line){
+    private nameParse(line){
         let cut = line.columns.entity.name.split(' ');
         cut.shift();
         //this.firstName = cut[0];
         this.lastName = cut.pop();
         this.firstName = cut.join(' ');
+        this.name = this.firstName+' '+this.lastName;
     }
 
     private getReceived(arr){

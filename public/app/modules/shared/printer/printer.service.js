@@ -21,7 +21,8 @@ var PrintService = (function () {
     PrintService.prototype.getPrinters = function () {
         var headers = new http_1.Headers({ 'token': this.auth.getToken() });
         var options = new http_1.RequestOptions({ headers: headers });
-        return this.http.get('print')
+        console.log(this.auth.getToken());
+        return this.http.get('print', options)
             .map(function (res) {
             var body = res.json();
             return body;
