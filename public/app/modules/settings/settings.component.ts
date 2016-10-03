@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 //services
 import {SettingsService} from './settings.service';
 import {SpinnerService} from '../../services/spinner/spinner.service';
+//models
+import {ItemDetail} from '../../models/item-detail/item-detail';
+import {Location} from '../../models/item-detail/location';
 
 @Component({
     moduleId: module.id,
@@ -104,6 +107,8 @@ export class SettingsComponent implements OnInit{
             )
         }
     }
+
+    private 
 
     private addItem(){
         this.searchId = 'item';

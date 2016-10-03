@@ -31,9 +31,10 @@ module.exports = function(app){
 
 	//post requests
 	app.post('/items', function(req, res){
-		console.log(req.body);
-		res.json({status: 'ok'});
-	})
+		l.checkItem(req.body, function(err, result){
+			response(err, result, req, res);
+		});
+	});
 
 	app.post('/login', function(req, res){
 		auth.login(req.body, function(err, result){
