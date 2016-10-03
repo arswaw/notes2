@@ -5,6 +5,8 @@ import {SpinnerComponent} from '../../services/spinner/spinner.component';
 import {MessageComponent} from '../../services/message/message.component';
 //models
 import {Page} from '../../models/page/page';
+//services
+import {AuthService} from '../../services/auth/auth.service';
 
 @Component({
     moduleId: module.id,
@@ -17,10 +19,11 @@ import {Page} from '../../models/page/page';
     ]
 })
 export class RootComponent {
+    private user: string;
     private pages: Array<Page>;
 
-    constructor(private router: Router){//for augury router view
-        this.pages = [
+    constructor(private router: Router, private auth: AuthService){//for augury router view
+        /*this.pages = [
             new Page({
                 "label": "Receiving",
                 "pageId": "receiving",
@@ -41,6 +44,16 @@ export class RootComponent {
                 "pageId": "settings",
                 "icon": "fa-cog" 
             }),
-        ];
+        ];*/
+        this.user = '';
+        this.pages = [];
+        auth.username.subscribe(
+            val => {
+                this.user = val;
+            }
+        )
+        auth.pages.subscribe(
+            val => {this.pages = val;}
+        )
     }
 }

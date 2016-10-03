@@ -13,33 +13,41 @@ var router_1 = require('@angular/router');
 //components
 var spinner_component_1 = require('../../services/spinner/spinner.component');
 var message_component_1 = require('../../services/message/message.component');
-//models
-var page_1 = require('../../models/page/page');
+//services
+var auth_service_1 = require('../../services/auth/auth.service');
 var RootComponent = (function () {
-    function RootComponent(router) {
+    function RootComponent(router, auth) {
+        var _this = this;
         this.router = router;
-        this.pages = [
-            new page_1.Page({
+        this.auth = auth;
+        /*this.pages = [
+            new Page({
                 "label": "Receiving",
                 "pageId": "receiving",
                 "icon": "fa-truck"
             }),
-            new page_1.Page({
+            new Page({
                 "label": "Repairs",
                 "pageId": "repairs",
                 "icon": "fa-reply fa-flip-vertical"
             }),
-            new page_1.Page({
+            new Page({
                 "label": "QC",
                 "pageId": "quality",
                 "icon": "fa-check-square-o"
             }),
-            new page_1.Page({
+            new Page({
                 "label": "Settings",
                 "pageId": "settings",
                 "icon": "fa-cog"
             }),
-        ];
+        ];*/
+        this.user = '';
+        this.pages = [];
+        auth.username.subscribe(function (val) {
+            _this.user = val;
+        });
+        auth.pages.subscribe(function (val) { _this.pages = val; });
     }
     RootComponent = __decorate([
         core_1.Component({
@@ -52,7 +60,7 @@ var RootComponent = (function () {
                 message_component_1.MessageComponent
             ]
         }), 
-        __metadata('design:paramtypes', [router_1.Router])
+        __metadata('design:paramtypes', [router_1.Router, auth_service_1.AuthService])
     ], RootComponent);
     return RootComponent;
 }());
