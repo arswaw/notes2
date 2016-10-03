@@ -14,6 +14,7 @@ var router_1 = require('@angular/router');
 var platform_browser_1 = require('@angular/platform-browser');
 var common_1 = require('@angular/common');
 var http_1 = require('@angular/http');
+require('rxjs/Rx');
 //components
 var root_component_1 = require('./root.component');
 var login_component_1 = require('./login.component');

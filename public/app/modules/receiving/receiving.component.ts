@@ -107,7 +107,7 @@ export class ReceivingComponent implements OnInit{
             .subscribe(
                 rma => this.spin.spinStop('receive'),
                 err => console.log(err),
-                () => this.router.navigate(['/receive'])
+                () => this.router.navigate(['/receiving'])
             );
     }
 

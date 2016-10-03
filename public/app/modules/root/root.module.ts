@@ -5,6 +5,7 @@ import {BrowserModule}  from '@angular/platform-browser';
 import {LocationStrategy,HashLocationStrategy} from '@angular/common';
 import {HttpModule,JsonpModule} from '@angular/http';
 import {Observable} from 'rxjs/Rx';
+import 'rxjs/Rx';
 //components
 import {RootComponent} from './root.component';
 import {LoginComponent} from './login.component';

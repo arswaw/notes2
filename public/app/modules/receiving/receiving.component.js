@@ -94,7 +94,7 @@ var ReceivingComponent = (function () {
             obj.voucher = true;
         }
         this.comms.received(obj)
-            .subscribe(function (rma) { return _this.spin.spinStop('receive'); }, function (err) { return console.log(err); }, function () { return _this.router.navigate(['/receive']); });
+            .subscribe(function (rma) { return _this.spin.spinStop('receive'); }, function (err) { return console.log(err); }, function () { return _this.router.navigate(['/receiving']); });
     };
     ReceivingComponent.prototype.swagCheck = function () {
         var bol = false;
