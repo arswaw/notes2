@@ -14,7 +14,7 @@ var DynaForm = (function () {
     }
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', Array)
+        __metadata('design:type', Object)
     ], DynaForm.prototype, "fields", void 0);
     DynaForm = __decorate([
         core_1.Component({

@@ -14,6 +14,8 @@ export class Rma {
     public ship_via: string;
     public intID: string;
     public status: string;
+    public sku: string;
+    public notes: string;
     public market: number;
     public storefront: number;
     public shippingAmount: number;
@@ -30,6 +32,7 @@ export class Rma {
             this.phone = arr[0].columns.shipphone || '';
             this.market = this.mak(arr);
             this.storefront = this.sf(arr);
+            this.sku = this.getSku(arr);
             this.shipping = new Address(arr[0].columns, false);
             this.billing = new Address(arr[0].columns, true);
             this.nameParse(arr[0]);
@@ -38,7 +41,42 @@ export class Rma {
             this.ship_via = 'ground';
             this.intID = arr[0].id;
             this.status = this.stat(arr);
+            this.notesInit(arr);
         }
+    }
+
+    private notesInit(arr){
+        let mlast = '';
+        let nlast = '';
+        let hold = [];
+        let tlast = {};
+        for(let i in arr){
+            let line = arr[i];
+            let note = line.columns['custbody_internal_note'];
+            let memo = line.columns['memo'];
+            let tech = line.columns['custrecord_tech'];
+            let tnote = line.columns['custrecord_tech_note_field'];
+            if(note != undefined && note != ''){
+                if(note != nlast){
+                    nlast = note;
+                    hold.push(note);
+                }
+            }
+            if(memo != undefined && memo != ''){
+                if(memo != mlast){
+                    mlast = memo;
+                    hold.push(memo);
+                }
+            }
+            if(tnote != undefined && tnote != ''){
+                if(tlast[tnote] == undefined){
+                    tlast[tnote] = true;
+                    tnote += '\n\t-'+tech;
+                    hold.push(tnote);
+                }
+            }
+        }
+        this.notes = hold.join('\n----------------\n');
     }
 
     private stat(arr){
@@ -69,6 +107,18 @@ export class Rma {
             let row = arr[i];
             if(row.columns['custbody_storefront_list'] != undefined){
                 hold = parseInt(row.columns['custbody_storefront_list'].internalid, 10);
+            }
+        }
+        return hold;
+    }
+
+    private getSku(arr){
+        let hold = '';
+        for(let i in arr){
+            let row = arr[i];
+            let sku = row.columns['custcol_legacy_3b_sku'];
+            if(sku != undefined){
+                hold = sku;
             }
         }
         return hold;

@@ -8,5 +8,5 @@ import {Component, Input} from '@angular/core';
     directives: [DynaForm]
 })
 export class DynaForm {
-    @Input() fields: Array<any>;
+    @Input() fields: any;
 }

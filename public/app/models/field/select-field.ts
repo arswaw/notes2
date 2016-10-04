@@ -1,8 +1,8 @@
 import {Field} from './field';
 
 export class SelectField extends Field<string>{
-    controlType = 'select';
-    options:{key:string, value:string}[] = [];
+    public controlType = 'select';
+    public options:{key:string, value:string}[] = [];
     
     constructor(options){
         super(options);

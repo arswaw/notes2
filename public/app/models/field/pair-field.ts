@@ -1,8 +1,8 @@
 import {Field} from './field';
 
 export class PairField extends Field<string>{
-    controlType = 'pair';
-    
+    public controlType = 'pair';
+    public key: string;
     constructor(options){
         super(options);
         let val = options.value;

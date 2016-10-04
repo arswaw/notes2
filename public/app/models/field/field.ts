@@ -3,7 +3,6 @@ export class Field<T>{
     public fieldId: string;
     public label: string;
     public controlType: string;
-    public key: string;
     public value: T;
     public required: boolean;
     constructor(options:{
@@ -11,11 +10,9 @@ export class Field<T>{
         controlType:string,
         _id?:string,
         fieldId?:string,
-        key?:string,
         value?: T,
         required?: boolean,
     }){
-        this.key = options.key || '';
         this.label = options.label;
         this.id = options._id || '';
         this.fieldId = options.fieldId || '';

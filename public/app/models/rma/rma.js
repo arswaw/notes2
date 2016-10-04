@@ -12,6 +12,7 @@ var Rma = (function () {
             this.phone = arr[0].columns.shipphone || '';
             this.market = this.mak(arr);
             this.storefront = this.sf(arr);
+            this.sku = this.getSku(arr);
             this.shipping = new address_1.Address(arr[0].columns, false);
             this.billing = new address_1.Address(arr[0].columns, true);
             this.nameParse(arr[0]);
@@ -20,8 +21,42 @@ var Rma = (function () {
             this.ship_via = 'ground';
             this.intID = arr[0].id;
             this.status = this.stat(arr);
+            this.notesInit(arr);
         }
     }
+    Rma.prototype.notesInit = function (arr) {
+        var mlast = '';
+        var nlast = '';
+        var hold = [];
+        var tlast = {};
+        for (var i in arr) {
+            var line = arr[i];
+            var note = line.columns['custbody_internal_note'];
+            var memo = line.columns['memo'];
+            var tech = line.columns['custrecord_tech'];
+            var tnote = line.columns['custrecord_tech_note_field'];
+            if (note != undefined && note != '') {
+                if (note != nlast) {
+                    nlast = note;
+                    hold.push(note);
+                }
+            }
+            if (memo != undefined && memo != '') {
+                if (memo != mlast) {
+                    mlast = memo;
+                    hold.push(memo);
+                }
+            }
+            if (tnote != undefined && tnote != '') {
+                if (tlast[tnote] == undefined) {
+                    tlast[tnote] = true;
+                    tnote += '\n\t-' + tech;
+                    hold.push(tnote);
+                }
+            }
+        }
+        this.notes = hold.join('\n----------------\n');
+    };
     Rma.prototype.stat = function (arr) {
         var hold = '';
         for (var i in arr) {
@@ -48,6 +83,17 @@ var Rma = (function () {
             var row = arr[i];
             if (row.columns['custbody_storefront_list'] != undefined) {
                 hold = parseInt(row.columns['custbody_storefront_list'].internalid, 10);
+            }
+        }
+        return hold;
+    };
+    Rma.prototype.getSku = function (arr) {
+        var hold = '';
+        for (var i in arr) {
+            var row = arr[i];
+            var sku = row.columns['custcol_legacy_3b_sku'];
+            if (sku != undefined) {
+                hold = sku;
             }
         }
         return hold;

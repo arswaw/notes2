@@ -15,6 +15,8 @@ var shared_module_1 = require('../shared/shared.module');
 var repairs_routing_1 = require('./repairs.routing');
 //components
 var repairs_component_1 = require('./repairs.component');
+//services
+var repairs_service_1 = require('./repairs.service');
 var RepairsModule = (function () {
     function RepairsModule() {
     }
@@ -26,6 +28,9 @@ var RepairsModule = (function () {
             ],
             declarations: [
                 repairs_component_1.RepairsComponent
+            ],
+            providers: [
+                repairs_service_1.RepairsService
             ]
         }), 
         __metadata('design:paramtypes', [])

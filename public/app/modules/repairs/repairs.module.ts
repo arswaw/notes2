@@ -5,6 +5,8 @@ import {SharedModule} from '../shared/shared.module';
 import {RepairsRouting} from './repairs.routing';
 //components
 import {RepairsComponent} from './repairs.component';
+//services
+import {RepairsService} from './repairs.service';
 
 @NgModule({
     imports: [
@@ -13,6 +15,9 @@ import {RepairsComponent} from './repairs.component';
     ],
     declarations: [
         RepairsComponent
+    ],
+    providers: [
+        RepairsService
     ]
 })
 export class RepairsModule{}
