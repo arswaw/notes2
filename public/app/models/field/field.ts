@@ -6,14 +6,14 @@ export class Field<T>{
     public value: T;
     public required: boolean;
     constructor(options:{
-        label:string,
+        label?:string,
         controlType:string,
         _id?:string,
         fieldId?:string,
         value?: T,
         required?: boolean,
     }){
-        this.label = options.label;
+        this.label = options.label || '';
         this.id = options._id || '';
         this.fieldId = options.fieldId || '';
         this.controlType = options.controlType
