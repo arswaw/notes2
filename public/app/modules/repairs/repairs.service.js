@@ -73,7 +73,7 @@ var RepairsService = (function () {
         };
         return new index_1.Index(obj);
     };
-    RepairsService.prototype.getInfo = function () {
+    RepairsService.prototype.getInfo = function (rma) {
         var obj = {
             label: 'General Info',
             fieldId: 'info',
@@ -82,17 +82,20 @@ var RepairsService = (function () {
                 {
                     "label": "Customer",
                     "controlType": "static",
-                    "fieldId": "cust"
+                    "fieldId": "cust",
+                    value: rma.name
                 },
                 {
                     "label": "SKU",
                     "controlType": "static",
-                    "fieldId": "sku"
+                    "fieldId": "sku",
+                    value: rma.sku
                 },
                 {
                     "label": "Item",
                     "controlType": "static",
-                    "fieldId": "item"
+                    "fieldId": "item",
+                    value: rma.item
                 },
                 {
                     "label": "Action",

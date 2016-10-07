@@ -13,28 +13,39 @@ var router_1 = require('@angular/router');
 //services
 var repairs_service_1 = require('./repairs.service');
 var spinner_service_1 = require('../../services/spinner/spinner.service');
+var rma_1 = require('../../models/rma/rma');
 var RepairsComponent = (function () {
     function RepairsComponent(comms, spin, route) {
+        var _this = this;
         this.comms = comms;
         this.spin = spin;
         this.route = route;
         this.page = 'repairs';
         this.serial = '';
         this.additional = '';
-        this.info = [this.comms.getInfo()];
+        //this.info = [this.comms.getInfo()];
         this.review = [this.comms.getReview()];
         this.notes = [this.comms.getBlankNotes()];
+        this.rma = new rma_1.Rma([]);
         this.spin.clearSpin();
-    }
-    RepairsComponent.prototype.ngOnInit = function () {
-        var _this = this;
         this.id = parseInt(this.route.snapshot.params['id'], 10).toString();
         this.spin.spinStart('rma');
         this.comms.getRMA(this.id)
-            .subscribe(function (rma) { return _this.procRma(rma); }, function (err) { return console.log(err); }, function () { return _this.spin.spinStop('rma'); });
+            .subscribe(function (rma) { return _this.rma = new rma_1.Rma(rma); }, function (err) { return console.log(err); }, function () { return _this.procRma(); });
+    }
+    RepairsComponent.prototype.ngOnInit = function () {
+        /*this.id = parseInt(this.route.snapshot.params['id'], 10).toString();
+        this.spin.spinStart('rma');
+        this.comms.getRMA(this.id)
+            .subscribe(
+                rma => this.rma = new Rma(rma),
+                err => console.log(err),
+                () => this.procRma()
+            );*/
     };
-    RepairsComponent.prototype.procRma = function (rma) {
-        console.log(rma);
+    RepairsComponent.prototype.procRma = function () {
+        this.info = [this.comms.getInfo(this.rma)];
+        this.spin.spinStop('rma');
     };
     RepairsComponent.prototype.submit = function () {
         console.log('submit');

@@ -18,6 +18,7 @@ import {PairField} from '../../models/field/pair-field';
 import {TextareaField} from '../../models/field/textarea-field';
 import {StaticField} from '../../models/field/static-field';
 import {RadioField} from '../../models/field/radio-field';
+import {Rma} from '../../models/rma/rma';
 
 @Injectable()
 export class RepairsService {
@@ -78,7 +79,7 @@ export class RepairsService {
         return new Index(obj);
     }
 
-    public getInfo(): Form{
+    public getInfo(rma): Form{
         let obj = {
             label: 'General Info',
             fieldId: 'info',
@@ -87,17 +88,20 @@ export class RepairsService {
                 {
                     "label": "Customer",
                     "controlType": "static",
-                    "fieldId": "cust"
+                    "fieldId": "cust",
+                    value: rma.name
                 },
                 {
                     "label": "SKU",
                     "controlType": "static",
-                    "fieldId": "sku"
+                    "fieldId": "sku",
+                    value: rma.sku
                 },
                 {
                     "label": "Item",
                     "controlType": "static",
                     "fieldId": "item"
+                    value: rma.item
                 },
                 {
                     "label": "Action",

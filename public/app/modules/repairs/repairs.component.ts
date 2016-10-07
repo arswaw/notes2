@@ -5,6 +5,7 @@ import {RepairsService} from './repairs.service';
 import {SpinnerService} from '../../services/spinner/spinner.service';
 //models
 import {Form} from '../../models/field/form';
+import {Rma} from '../../models/rma/rma';
 
 @Component({
     moduleId: module.id,
@@ -19,29 +20,40 @@ export class RepairsComponent implements OnInit{
     private info: Array<Form>;
     private review: Array<Form>;
     private notes: Array<Form>;
+    private rma: Rma;
     constructor(private comms: RepairsService, private spin: SpinnerService, private route: ActivatedRoute){
         this.page = 'repairs';
         this.serial = '';
         this.additional = '';
-        this.info = [this.comms.getInfo()];
+        //this.info = [this.comms.getInfo()];
         this.review = [this.comms.getReview()];
         this.notes = [this.comms.getBlankNotes()];
+        this.rma = new Rma([]);
         this.spin.clearSpin();
-    }
-
-    ngOnInit(){
         this.id = parseInt(this.route.snapshot.params['id'], 10).toString();
         this.spin.spinStart('rma');
         this.comms.getRMA(this.id)
             .subscribe(
-                rma => this.procRma(rma),
+                rma => this.rma = new Rma(rma),
                 err => console.log(err),
-                () => this.spin.spinStop('rma')
+                () => this.procRma()
             );
     }
 
-    private procRma(rma){
-        console.log(rma);
+    ngOnInit(){
+        /*this.id = parseInt(this.route.snapshot.params['id'], 10).toString();
+        this.spin.spinStart('rma');
+        this.comms.getRMA(this.id)
+            .subscribe(
+                rma => this.rma = new Rma(rma),
+                err => console.log(err),
+                () => this.procRma()
+            );*/
+    }
+
+    private procRma(){
+        this.info = [this.comms.getInfo(this.rma)];
+        this.spin.spinStop('rma');
     }
 
     private submit(){
